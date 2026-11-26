@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StoreBooks | Sua próxima história começa aqui</title>
+  <meta name="description" content="StoreBooks, loja fictícia de livros: clássicos da literatura brasileira.">
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:wght@500;700&display=swap">
+  <!-- Bootstrap (componentes e grade) em uma camada abaixo dos utilitários do Tailwind -->
+  <style>
+    @layer theme, base, bootstrap, components, utilities;
+    @import url("https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css") layer(bootstrap);
+  </style>
+  <!-- TailwindCSS compilado a partir de src/input.css + tailwind.config.js -->
+  <link rel="stylesheet" href="assets/css/tailwind.css">
+</head>
+<body class="bg-papel font-corpo text-tinta">
+
+  <!-- Cabeçalho + barra de navegação (Bootstrap) -->
+  <header class="sticky top-0 z-50">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-tinta py-[0.75rem] shadow-xl" aria-label="Navegação principal">
+      <div class="container">
+        <a class="navbar-brand flex animate-fadeIn items-center gap-[0.5rem] font-titulo text-2xl font-bold text-papel transition-colors hover:text-ambar" href="#inicio">
+          <img src="assets/img/logo.svg" width="36" height="36" alt="">
+          <span>Store<span class="text-ambar">Books</span></span>
+        </a>
+        <button class="navbar-toggler transition duration-150 ease-out active:scale-95" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Abrir menu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="menu">
+          <ul class="navbar-nav mx-auto items-start gap-[0.25rem] py-[0.75rem] lg:items-center lg:gap-4 lg:py-0 xl:gap-8">
+          <li class="nav-item animate-fadeIn [animation-delay:150ms]">
+            <a class="nav-link sublinha inline-block pb-[0.25rem] no-underline transition-colors duration-300 ease-out hover:animate-sublinhar focus-visible:animate-sublinhar px-0 text-papel hover:text-ambar focus-visible:text-ambar" href="#inicio">Início</a>
+          </li>
+          <li class="nav-item animate-fadeIn [animation-delay:270ms]">
+            <a class="nav-link sublinha inline-block pb-[0.25rem] no-underline transition-colors duration-300 ease-out hover:animate-sublinhar focus-visible:animate-sublinhar px-0 text-papel hover:text-ambar focus-visible:text-ambar" href="#destaques">Destaques</a>
+          </li>
+          <li class="nav-item animate-fadeIn [animation-delay:390ms]">
+            <a class="nav-link sublinha inline-block pb-[0.25rem] no-underline transition-colors duration-300 ease-out hover:animate-sublinhar focus-visible:animate-sublinhar px-0 text-papel hover:text-ambar focus-visible:text-ambar" href="#categorias">Categorias</a>
+          </li>
+          <li class="nav-item animate-fadeIn [animation-delay:510ms]">
+            <a class="nav-link sublinha inline-block pb-[0.25rem] no-underline transition-colors duration-300 ease-out hover:animate-sublinhar focus-visible:animate-sublinhar px-0 text-papel hover:text-ambar focus-visible:text-ambar" href="#livros">Livros</a>
+          </li>
+          <li class="nav-item animate-fadeIn [animation-delay:630ms]">
+            <a class="nav-link sublinha inline-block pb-[0.25rem] no-underline transition-colors duration-300 ease-out hover:animate-sublinhar focus-visible:animate-sublinhar px-0 text-papel hover:text-ambar focus-visible:text-ambar" href="#contato">Contato</a>
+          </li>
+          </ul>
+          <div class="flex animate-fadeIn flex-wrap items-center gap-[0.75rem] [animation-delay:750ms]">
+            <!-- Barra de busca expansiva -->
+            <form id="form-busca" class="relative m-0" role="search">
+              <label for="busca" class="sr-only">Buscar livros</label>
+              <input id="busca" type="search" autocomplete="off" placeholder="Buscar livros..."
+                class="peer box-border h-11 w-11 cursor-pointer rounded-full border-2 border-solid border-transparent bg-tinta-700 py-[0.5rem] pr-0 pl-10 text-sm text-[white] outline-none transition-all duration-500 ease-in-out placeholder:text-transparent focus:w-64 focus:cursor-text focus:border-ambar focus:pr-4 focus:placeholder:text-papel/60 lg:focus:w-48 xl:focus:w-64 [&:not(:placeholder-shown)]:w-64 [&:not(:placeholder-shown)]:pr-4 lg:[&:not(:placeholder-shown)]:w-48 xl:[&:not(:placeholder-shown)]:w-64">
+              <svg class="pointer-events-none absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 text-papel peer-focus:text-ambar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+            </form>
+            <button type="button" id="botao-carrinho" class="btn flex h-11 items-center gap-[0.5rem] rounded-full border-0 bg-ambar px-[0.75rem] font-semibold text-tinta-900 hover:bg-ambar-claro active:bg-ambar-claro transition duration-150 ease-out active:scale-95">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 11h11l2-8H6"/><circle cx="9" cy="20" r="1"/><circle cx="17" cy="20" r="1"/></svg>
+              <span class="sr-only">Itens no carrinho:</span><span id="contador">0</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section id="inicio" class="scroll-mt-24 bg-linear-to-b from-papel-escuro to-papel py-12 text-center md:py-18 2xl:py-22">
+      <div class="container animate-fadeIn">
+        <h1 class="mx-auto text-balance mb-[0.75rem] max-w-3xl font-titulo text-4xl font-bold sm:text-5xl 2xl:text-6xl">Sua próxima história começa aqui</h1>
+        <p class="mx-auto mb-6 max-w-xl text-lg text-tinta/80">Clássicos da literatura brasileira para ler, reler e presentear.</p>
+        <a href="#livros" class="btn rounded-full border-0 bg-vinho px-[1rem] py-[0.5rem] text-sm font-semibold text-[white] hover:bg-vinho-escuro hover:text-white focus-visible:bg-vinho-escuro active:bg-vinho-escuro active:text-white transition duration-150 ease-out active:scale-95 px-6 py-[0.75rem] text-base no-underline">Explorar livros</a>
+      </div>
+    </section>
+
+    <!-- Destaques: CSS Grid com áreas nomeadas -->
+    <section id="destaques" class="scroll-mt-24 py-12 md:py-18" aria-labelledby="t-destaques">
+      <div class="container">
+        <h2 id="t-destaques" class="mb-8 font-titulo text-3xl font-bold">Destaques</h2>
+        <div class="grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-[3fr_2fr]">
+        <article class="grid areas-empilhado md:areas-lado-a-lado lg:col-span-2 xl:col-span-1 xl:row-span-2 content-center gap-x-8 gap-y-4 rounded-3xl bg-tinta text-papel text-[center] md:text-left p-6 shadow-cartao md:p-8">
+          <header class="area-titulo self-end">
+            <p class="mb-[0.5rem] text-xs font-semibold uppercase tracking-widest text-ambar-claro">Livro do mês</p>
+            <h3 class="mb-[0.25rem] font-titulo text-3xl md:text-4xl 2xl:text-5xl font-bold">Dom Casmurro</h3>
+            <p class="mb-0 text-sm opacity-80">Machado de Assis</p>
+          </header>
+          <figure class="area-imagem m-0 self-center justify-self-center">
+            <img class="w-capa md:w-60 xl:w-64 2xl:w-72 h-auto rounded-lg shadow-capa animate-flutuar" src="assets/img/dom-casmurro.svg" width="300" height="440" alt="Capa do livro Dom Casmurro">
+          </figure>
+          <div class="area-descricao">
+            <p class="leading-relaxed opacity-90">Bentinho revisita a própria vida e a história com Capitu. Um narrador em quem o leitor precisa decidir se confia.</p>
+            <p class="mb-[0.75rem] font-titulo text-2xl font-bold text-ambar-claro">R$ 39,90</p>
+            <button type="button" class="btn rounded-full border-0 bg-vinho px-[1rem] py-[0.5rem] text-sm font-semibold text-[white] hover:bg-vinho-escuro hover:text-white focus-visible:bg-vinho-escuro active:bg-vinho-escuro active:text-white transition duration-150 ease-out active:scale-95" data-comprar="Dom Casmurro">Adicionar ao carrinho</button>
+          </div>
+        </article>
+        <article class="grid areas-empilhado sm:areas-lado-a-lado  content-center gap-x-8 gap-y-4 rounded-3xl bg-[white] text-tinta text-[center] sm:text-left p-6 shadow-cartao md:p-8">
+          <header class="area-titulo self-end">
+            <p class="mb-[0.5rem] text-xs font-semibold uppercase tracking-widest text-vinho">Destaque</p>
+            <h3 class="mb-[0.25rem] font-titulo text-2xl font-bold">Iracema</h3>
+            <p class="mb-0 text-sm opacity-80">José de Alencar</p>
+          </header>
+          <figure class="area-imagem m-0 self-center justify-self-center">
+            <img class="w-40 sm:w-32 h-auto rounded-lg shadow-capa" src="assets/img/iracema.svg" width="300" height="440" alt="Capa do livro Iracema">
+          </figure>
+          <div class="area-descricao">
+            <p class="leading-relaxed opacity-90">Um romance poético sobre o encontro entre Iracema e Martim no litoral do Ceará.</p>
+            <p class="mb-[0.75rem] font-titulo text-2xl font-bold text-vinho">R$ 29,90</p>
+            <button type="button" class="btn rounded-full border-0 bg-vinho px-[1rem] py-[0.5rem] text-sm font-semibold text-[white] hover:bg-vinho-escuro hover:text-white focus-visible:bg-vinho-escuro active:bg-vinho-escuro active:text-white transition duration-150 ease-out active:scale-95" data-comprar="Iracema">Adicionar ao carrinho</button>
+          </div>
+        </article>
+        <article class="grid areas-empilhado sm:areas-lado-a-lado  content-center gap-x-8 gap-y-4 rounded-3xl bg-[white] text-tinta text-[center] sm:text-left p-6 shadow-cartao md:p-8">
+          <header class="area-titulo self-end">
+            <p class="mb-[0.5rem] text-xs font-semibold uppercase tracking-widest text-vinho">Destaque</p>
+            <h3 class="mb-[0.25rem] font-titulo text-2xl font-bold">O Cortiço</h3>
+            <p class="mb-0 text-sm opacity-80">Aluísio Azevedo</p>
+          </header>
+          <figure class="area-imagem m-0 self-center justify-self-center">
+            <img class="w-40 sm:w-32 h-auto rounded-lg shadow-capa" src="assets/img/o-cortico.svg" width="300" height="440" alt="Capa do livro O Cortiço">
+          </figure>
+          <div class="area-descricao">
+            <p class="leading-relaxed opacity-90">O cotidiano de uma habitação coletiva no Rio de Janeiro, marco do naturalismo.</p>
+            <p class="mb-[0.75rem] font-titulo text-2xl font-bold text-vinho">R$ 34,90</p>
+            <button type="button" class="btn rounded-full border-0 bg-vinho px-[1rem] py-[0.5rem] text-sm font-semibold text-[white] hover:bg-vinho-escuro hover:text-white focus-visible:bg-vinho-escuro active:bg-vinho-escuro active:text-white transition duration-150 ease-out active:scale-95" data-comprar="O Cortiço">Adicionar ao carrinho</button>
+          </div>
+        </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categorias: slide-in com Intersection Observer -->
+    <section id="categorias" class="scroll-mt-24 overflow-hidden bg-papel-escuro py-12 md:py-18" aria-labelledby="t-categorias">
+      <div class="container">
+        <h2 id="t-categorias" class="mb-[0.5rem] font-titulo text-3xl font-bold">Categorias</h2>
+        <p class="mb-8 text-tinta/70">Clique em uma categoria para filtrar os livros.</p>
+        <div class="grid grid-cols-1 gap-[1rem] sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+        <div class="categoria">
+          <button type="button" data-categoria="romance" aria-pressed="false" class="group flex h-full w-full cursor-pointer flex-col items-center rounded-2xl border-2 border-solid border-transparent bg-[white] p-6 text-tinta shadow-cartao hover:border-ambar aria-pressed:border-vinho aria-pressed:bg-papel-escuro transition duration-150 ease-out active:scale-95">
+            <svg class="mb-[0.75rem] h-12 w-12 text-vinho transition duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.800-8 11-8 11z"/></svg>
+            <span class="font-titulo text-lg font-bold">Romance</span>
+            <span class="text-sm text-tinta/70">Paixões e dramas</span>
+          </button>
+        </div>
+        <div class="categoria">
+          <button type="button" data-categoria="realismo" aria-pressed="false" class="group flex h-full w-full cursor-pointer flex-col items-center rounded-2xl border-2 border-solid border-transparent bg-[white] p-6 text-tinta shadow-cartao hover:border-ambar aria-pressed:border-vinho aria-pressed:bg-papel-escuro transition duration-150 ease-out active:scale-95">
+            <svg class="mb-[0.75rem] h-12 w-12 text-vinho transition duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zm9 16-4-4"/></svg>
+            <span class="font-titulo text-lg font-bold">Realismo</span>
+            <span class="text-sm text-tinta/70">A sociedade sem filtros</span>
+          </button>
+        </div>
+        <div class="categoria">
+          <button type="button" data-categoria="satira" aria-pressed="false" class="group flex h-full w-full cursor-pointer flex-col items-center rounded-2xl border-2 border-solid border-transparent bg-[white] p-6 text-tinta shadow-cartao hover:border-ambar aria-pressed:border-vinho aria-pressed:bg-papel-escuro transition duration-150 ease-out active:scale-95">
+            <svg class="mb-[0.75rem] h-12 w-12 text-vinho transition duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM8 14q4 4 8 0M8.5 9h.01M15.5 9h.01"/></svg>
+            <span class="font-titulo text-lg font-bold">Sátira</span>
+            <span class="text-sm text-tinta/70">Humor e crítica</span>
+          </button>
+        </div>
+        <div class="categoria">
+          <button type="button" data-categoria="naturalismo" aria-pressed="false" class="group flex h-full w-full cursor-pointer flex-col items-center rounded-2xl border-2 border-solid border-transparent bg-[white] p-6 text-tinta shadow-cartao hover:border-ambar aria-pressed:border-vinho aria-pressed:bg-papel-escuro transition duration-150 ease-out active:scale-95">
+            <svg class="mb-[0.75rem] h-12 w-12 text-vinho transition duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19C5 9 11 4 20 4c0 10-6 15-15 15zm0 0 8-8"/></svg>
+            <span class="font-titulo text-lg font-bold">Naturalismo</span>
+            <span class="text-sm text-tinta/70">O meio e o instinto</span>
+          </button>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="livros" class="scroll-mt-24 py-12 md:py-18" aria-labelledby="t-livros">
+      <div class="container">
+        <h2 id="t-livros" class="mb-[0.5rem] font-titulo text-3xl font-bold">Nossos livros</h2>
+        <p id="resultado" class="mb-8 text-tinta/70" aria-live="polite">8 livros disponíveis</p>
+        <div class="grid grid-cols-2 gap-[1rem] md:grid-cols-3 md:gap-6 lg:grid-cols-4 2xl:gap-8">
+        <div class="livro" data-categoria="realismo" data-busca="Dom Casmurro Machado de Assis Realismo">
+          <article class="flex h-full flex-col overflow-hidden rounded-2xl bg-[white] shadow-cartao transition duration-300 ease-out hover:scale-105 hover:shadow-2xl hover:animate-sombra">
+            <div class="flex justify-center bg-papel-escuro p-[1rem] sm:p-6">
+              <img class="h-auto w-full max-w-44 rounded-md shadow-capa" src="assets/img/dom-casmurro.svg" width="300" height="440" alt="Capa do livro Dom Casmurro" loading="lazy">
+            </div>
+            <div class="flex grow flex-col p-[0.75rem] sm:p-4">
+              <p class="mb-[0.25rem] text-xs font-semibold uppercase tracking-wider text-vinho">Realismo</p>
+              <h3 class="mb-[0.25rem] font-titulo text-base font-bold sm:text-lg">Dom Casmurro</h3>
+              <p class="mb-[0.75rem] text-sm text-tinta/70">Machado de Assis</p>
+              <p class="mt-auto mb-[0.75rem] text-xl font-bold">R$ 39,90</p>
+              <button type="button" class="btn rounded-full border-0 bg-vinho px-[1rem] py-[0.5rem] text-sm font-semibold text-[white] hover:bg-vinho-escuro hover:text-white focus-visible:bg-vinho-escuro active:bg-vinho-escuro active:text-white transition duration-150 ease-out active:scale-95 w-full" data-comprar="Dom Casmurro">Comprar</button>
+            </div>
+          </article>
+        </div>
+        <div class="livro" data-categoria="romance" data-busca="Iracema José de Alencar Romance">
+          <article class="flex h-full flex-col overflow-hidden rounded-2xl bg-[white] shadow-cartao transition duration-300 ease-out hover:scale-105 hover:shadow-2xl hover:animate-sombra">
+            <div class="flex justify-center bg-papel-escuro p-[1rem] sm:p-6">
+              <img class="h-auto w-full max-w-44 rounded-md shadow-capa" src="assets/img/iracema.svg" width="300" height="440" alt="Capa do livro Iracema" loading="lazy">
+            </div>
+            <div class="flex grow flex-col p-[0.75rem] sm:p-4">
+              <p class="mb-[0.25rem] text-xs font-semibold uppercase tracking-wider text-vinho">Romance</p>
+              <h3 class="mb-[0.25rem] font-titulo text-base font-bold sm:text-lg">Iracema</h3>
+              <p class="mb-[0.75rem] text-sm text-tinta/70">José de Alencar</p>
+              <p class="mt-auto mb-[0.75rem] text-xl font-bold">R$ 29,90</p>
+              <button type="button" class="btn rounded-full border-0 bg-vinho px-[1rem] py-[0.5rem] text-sm font-semibold text-[white] hover:bg-vinho-escuro hover:text-white focus-visible:bg-vinho-escuro active:bg-vinho-escuro active:text-white transition duration-150 ease-out active:scale-95 w-full" data-comprar="Iracema">Comprar</button>
+            </div>
+          </article>
+        </div>
+        <div class="livro" data-categoria="naturalismo" data-busca="O Cortiço Aluísio Azevedo Naturalismo">
+          <article class="flex h-full flex-col overflow-hidden rounded-2xl bg-[white] shadow-cartao transition duration-300 ease-out hover:scale-105 hover:shadow-2xl hover:animate-sombra">
+            <div class="flex justify-center bg-papel-escuro p-[1rem] sm:p-6">
+              <img class="h-auto w-full max-w-44 rounded-md shadow-capa" src="assets/img/o-cortico.svg" width="300" height="440" alt="Capa do livro O Cortiço" loading="lazy">
+            </div>
+            <div class="flex grow flex-col p-[0.75rem] sm:p-4">
+              <p class="mb-[0.25rem] text-xs font-semibold uppercase tracking-wider text-vinho">Naturalismo</p>
+              <h3 class="mb-[0.25rem] font-titulo text-base font-bold sm:text-lg">O Cortiço</h3>
+              <p class="mb-[0.75rem] text-sm text-tinta/70">Aluísio Azevedo</p>
+              <p class="mt-auto mb-[0.75rem] text-xl font-bold">R$ 34,90</p>
+              <button type="button" class="btn rounded-full border-0 bg-vinho px-[1rem] py-[0.5rem] text-sm font-semibold text-[white] hover:bg-vinho-escuro hover:text-white focus-visible:bg-vinho-escuro active:bg-vinho-escuro active:text-white transition duration-150 ease-out active:scale-95 w-full" data-comprar="O Cortiço">Comprar</button>
+            </div>
+          </article>
+        </div>
+        <div class="livro" data-categoria="realismo" data-busca="Memórias Póstumas de Brás Cubas Machado de Assis Realismo">
+          <article class="flex h-full flex-col overflow-hidden rounded-2xl bg-[white] shadow-cartao transition duration-300 ease-out hover:scale-105 hover:shadow-2xl hover:animate-sombra">
+            <div class="flex justify-center bg-papel-escuro p-[1rem] sm:p-6">
+              <img class="h-auto w-full max-w-44 rounded-md shadow-capa" src="assets/img/bras-cubas.svg" width="300" height="440" alt="Capa do livro Memórias Póstumas de Brás Cubas" loading="lazy">
+            </div>
+            <div class="flex grow flex-col p-[0.75rem] sm:p-4">
+              <p class="mb-[0.25rem] text-xs font-semibold uppercase tracking-wider text-vinho">Realismo</p>
+              <h3 class="mb-[0.25rem] font-titulo text-base font-bold sm:text-lg">Memórias Póstumas de Brás Cubas</h3>
+              <p class="mb-[0.75rem] text-sm text-tinta/70">Machado de Assis</p>
+              <p class="mt-auto mb-[0.75rem] text-xl font-bold">R$ 42,50</p>
+              <button type="button" class="btn rounded-full border-0 bg-vinho px-[1rem] py-[0.5rem] text-sm font-semibold text-[white] hover:bg-vinho-escuro hover:text-white focus-visible:bg-vinho-escuro active:bg-vinho-escuro active:text-white transition duration-150 ease-out active:scale-95 w-full" data-comprar="Memórias Póstumas de Brás Cubas">Comprar</button>
+            </div>
+          </article>
+        </div>
+        <div class="livro" data-categoria="satira" data-busca="O Alienista Machado de Assis Sátira">
+          <article class="flex h-full flex-col overflow-hidden rounded-2xl bg-[white] shadow-cartao transition duration-300 ease-out hover:scale-105 hover:shadow-2xl hover:animate-sombra">
+            <div class="flex justify-center bg-papel-escuro p-[1rem] sm:p-6">
+              <img class="h-auto w-full max-w-44 rounded-md shadow-capa" src="assets/img/o-alienista.svg" width="300" height="440" alt="Capa do livro O Alienista" loading="lazy">
+            </div>
+            <div class="flex grow flex-col p-[0.75rem] sm:p-4">
+              <p class="mb-[0.25rem] text-xs font-semibold uppercase tracking-wider text-vinho">Sátira</p>
+              <h3 class="mb-[0.25rem] font-titulo text-base font-bold sm:text-lg">O Alienista</h3>
+              <p class="mb-[0.75rem] text-sm text-tinta/70">Machado de Assis</p>
+              <p class="mt-auto mb-[0.75rem] text-xl font-bold">R$ 24,90</p>
+              <button type="button" class="btn rounded-full border-0 bg-vinho px-[1rem] py-[0.5rem] text-sm font-semibold text-[white] hover:bg-vinho-escuro hover:text-white focus-visible:bg-vinho-escuro active:bg-vinho-escuro active:text-white transition duration-150 ease-out active:scale-95 w-full" data-comprar="O Alienista">Comprar</button>
+            </div>
+          </article>
+        </div>
+        <div class="livro" data-categoria="satira" data-busca="Triste Fim de Policarpo Quaresma Lima Barreto Sátira">
+          <article class="flex h-full flex-col overflow-hidden rounded-2xl bg-[white] shadow-cartao transition duration-300 ease-out hover:scale-105 hover:shadow-2xl hover:animate-sombra">
+            <div class="flex justify-center bg-papel-escuro p-[1rem] sm:p-6">
+              <img class="h-auto w-full max-w-44 rounded-md shadow-capa" src="assets/img/policarpo.svg" width="300" height="440" alt="Capa do livro Triste Fim de Policarpo Quaresma" loading="lazy">
+            </div>
+            <div class="flex grow flex-col p-[0.75rem] sm:p-4">
+              <p class="mb-[0.25rem] text-xs font-semibold uppercase tracking-wider text-vinho">Sátira</p>
+              <h3 class="mb-[0.25rem] font-titulo text-base font-bold sm:text-lg">Triste Fim de Policarpo Quaresma</h3>
+              <p class="mb-[0.75rem] text-sm text-tinta/70">Lima Barreto</p>
+              <p class="mt-auto mb-[0.75rem] text-xl font-bold">R$ 36,00</p>
+              <button type="button" class="btn rounded-full border-0 bg-vinho px-[1rem] py-[0.5rem] text-sm font-semibold text-[white] hover:bg-vinho-escuro hover:text-white focus-visible:bg-vinho-escuro active:bg-vinho-escuro active:text-white transition duration-150 ease-out active:scale-95 w-full" data-comprar="Triste Fim de Policarpo Quaresma">Comprar</button>
+            </div>
+          </article>
+        </div>
+        <div class="livro" data-categoria="romance" data-busca="A Moreninha Joaquim Manuel de Macedo Romance">
+          <article class="flex h-full flex-col overflow-hidden rounded-2xl bg-[white] shadow-cartao transition duration-300 ease-out hover:scale-105 hover:shadow-2xl hover:animate-sombra">
+            <div class="flex justify-center bg-papel-escuro p-[1rem] sm:p-6">
+              <img class="h-auto w-full max-w-44 rounded-md shadow-capa" src="assets/img/a-moreninha.svg" width="300" height="440" alt="Capa do livro A Moreninha" loading="lazy">
+            </div>
+            <div class="flex grow flex-col p-[0.75rem] sm:p-4">
+              <p class="mb-[0.25rem] text-xs font-semibold uppercase tracking-wider text-vinho">Romance</p>
+              <h3 class="mb-[0.25rem] font-titulo text-base font-bold sm:text-lg">A Moreninha</h3>
+              <p class="mb-[0.75rem] text-sm text-tinta/70">Joaquim Manuel de Macedo</p>
+              <p class="mt-auto mb-[0.75rem] text-xl font-bold">R$ 27,90</p>
+              <button type="button" class="btn rounded-full border-0 bg-vinho px-[1rem] py-[0.5rem] text-sm font-semibold text-[white] hover:bg-vinho-escuro hover:text-white focus-visible:bg-vinho-escuro active:bg-vinho-escuro active:text-white transition duration-150 ease-out active:scale-95 w-full" data-comprar="A Moreninha">Comprar</button>
+            </div>
+          </article>
+        </div>
+        <div class="livro" data-categoria="romance" data-busca="Senhora José de Alencar Romance">
+          <article class="flex h-full flex-col overflow-hidden rounded-2xl bg-[white] shadow-cartao transition duration-300 ease-out hover:scale-105 hover:shadow-2xl hover:animate-sombra">
+            <div class="flex justify-center bg-papel-escuro p-[1rem] sm:p-6">
+              <img class="h-auto w-full max-w-44 rounded-md shadow-capa" src="assets/img/senhora.svg" width="300" height="440" alt="Capa do livro Senhora" loading="lazy">
+            </div>
+            <div class="flex grow flex-col p-[0.75rem] sm:p-4">
+              <p class="mb-[0.25rem] text-xs font-semibold uppercase tracking-wider text-vinho">Romance</p>
+              <h3 class="mb-[0.25rem] font-titulo text-base font-bold sm:text-lg">Senhora</h3>
+              <p class="mb-[0.75rem] text-sm text-tinta/70">José de Alencar</p>
+              <p class="mt-auto mb-[0.75rem] text-xl font-bold">R$ 32,90</p>
+              <button type="button" class="btn rounded-full border-0 bg-vinho px-[1rem] py-[0.5rem] text-sm font-semibold text-[white] hover:bg-vinho-escuro hover:text-white focus-visible:bg-vinho-escuro active:bg-vinho-escuro active:text-white transition duration-150 ease-out active:scale-95 w-full" data-comprar="Senhora">Comprar</button>
+            </div>
+          </article>
+        </div>
+        </div>
+        <div id="vazio" class="rounded-2xl bg-[white] p-8 text-center shadow-cartao" hidden>
+          <p class="mb-[0.75rem]">Nenhum livro encontrado.</p>
+          <button type="button" id="limpar" class="btn rounded-full border-0 bg-vinho px-[1rem] py-[0.5rem] text-sm font-semibold text-[white] hover:bg-vinho-escuro hover:text-white focus-visible:bg-vinho-escuro active:bg-vinho-escuro active:text-white transition duration-150 ease-out active:scale-95">Limpar filtros</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Aviso do carrinho (componente Toast do Bootstrap) -->
+  <div class="toast-container fixed right-0 bottom-0 z-50 p-[0.75rem]">
+    <div id="aviso" class="toast border-0 bg-[white] shadow-2xl" role="status" aria-live="polite" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="grow font-titulo text-vinho">StoreBooks</strong>
+        <button type="button" class="btn-close transition duration-150 ease-out active:scale-95" data-bs-dismiss="toast" aria-label="Fechar"></button>
+      </div>
+      <div class="toast-body" id="aviso-texto"></div>
+    </div>
+  </div>
+
+  <!-- Rodapé (Bootstrap) -->
+  <footer id="contato" class="bg-tinta-900 pt-12 pb-6 text-papel">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-12 col-md-6 col-lg-5">
+          <p class="mb-[0.5rem] font-titulo text-2xl font-bold">Store<span class="text-ambar">Books</span></p>
+          <p class="max-w-sm text-papel/70">Uma livraria fictícia criada como projeto de estudo de desenvolvimento web.</p>
+        </div>
+        <div class="col-6 col-md-3 col-lg-2">
+          <h2 class="mb-[0.75rem] font-titulo text-base font-bold text-ambar">Navegar</h2>
+          <ul class="list-unstyled">
+            <li class="mb-[0.5rem]"><a class="sublinha inline-block pb-[0.25rem] no-underline transition-colors duration-300 ease-out hover:animate-sublinhar focus-visible:animate-sublinhar text-papel/80 hover:text-ambar focus-visible:text-ambar" href="#inicio">Início</a></li>
+            <li class="mb-[0.5rem]"><a class="sublinha inline-block pb-[0.25rem] no-underline transition-colors duration-300 ease-out hover:animate-sublinhar focus-visible:animate-sublinhar text-papel/80 hover:text-ambar focus-visible:text-ambar" href="#destaques">Destaques</a></li>
+            <li class="mb-[0.5rem]"><a class="sublinha inline-block pb-[0.25rem] no-underline transition-colors duration-300 ease-out hover:animate-sublinhar focus-visible:animate-sublinhar text-papel/80 hover:text-ambar focus-visible:text-ambar" href="#livros">Livros</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-3 col-lg-2">
+          <h2 class="mb-[0.75rem] font-titulo text-base font-bold text-ambar">Explorar</h2>
+          <ul class="list-unstyled">
+            <li class="mb-[0.5rem]"><a class="sublinha inline-block pb-[0.25rem] no-underline transition-colors duration-300 ease-out hover:animate-sublinhar focus-visible:animate-sublinhar text-papel/80 hover:text-ambar focus-visible:text-ambar" href="#categorias">Categorias</a></li>
+            <li class="mb-[0.5rem]"><a class="sublinha inline-block pb-[0.25rem] no-underline transition-colors duration-300 ease-out hover:animate-sublinhar focus-visible:animate-sublinhar text-papel/80 hover:text-ambar focus-visible:text-ambar" href="#contato">Contato</a></li>
+          </ul>
+        </div>
+        <div class="col-12 col-lg-3">
+          <h2 class="mb-[0.75rem] font-titulo text-base font-bold text-ambar">Siga a StoreBooks</h2>
+          <div class="flex gap-[0.75rem]">
+            <a data-social href="#contato" aria-label="Fotos" title="Fotos" class="group flex h-11 w-11 items-center justify-center rounded-full bg-tinta-700 text-papel transition-colors duration-300 hover:bg-ambar hover:text-tinta-900">
+              <svg class="h-6 w-6 group-hover:animate-pulse-social" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="3"/><path d="M8 7l2-3h4l2 3"/><circle cx="12" cy="13.5" r="3.5"/></svg>
+            </a>
+            <a data-social href="#contato" aria-label="Conversas" title="Conversas" class="group flex h-11 w-11 items-center justify-center rounded-full bg-tinta-700 text-papel transition-colors duration-300 hover:bg-ambar hover:text-tinta-900">
+              <svg class="h-6 w-6 group-hover:animate-pulse-social" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H10l-5 4v-4H4z"/></svg>
+            </a>
+            <a data-social href="#contato" aria-label="Vídeos" title="Vídeos" class="group flex h-11 w-11 items-center justify-center rounded-full bg-tinta-700 text-papel transition-colors duration-300 hover:bg-ambar hover:text-tinta-900">
+              <svg class="h-6 w-6 group-hover:animate-pulse-social" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l6 3.5-6 3.5z"/></svg>
+            </a>
+            <a data-social href="#contato" aria-label="Novidades" title="Novidades" class="group flex h-11 w-11 items-center justify-center rounded-full bg-tinta-700 text-papel transition-colors duration-300 hover:bg-ambar hover:text-tinta-900">
+              <svg class="h-6 w-6 group-hover:animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.500 15.500 18 18M6 18l2.5-2.500M15.5 8.5 18 6"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <hr class="my-6 border-papel">
+      <p class="mb-0 text-center text-sm text-papel/60">&copy; 2026 StoreBooks. Projeto acadêmico sem fins comerciais.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+/* Ordem das camadas: o Bootstrap fica abaixo dos utilitários do Tailwind. */
+@layer theme, base, bootstrap, components, utilities;
+
+/* O "preflight" do Tailwind não é importado: o reset é o do Bootstrap. */
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities) source(none);
+
+@config "../tailwind.config.js";
+@source "../index.html";
+@source "../assets/js";
+
+/* Nomes que pertencem ao Bootstrap: o Tailwind não deve gerá-los. */
+@source not inline("collapse");
+@source not inline("container");
+
+/* Acessibilidade: respeita quem pede menos movimento no sistema. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
